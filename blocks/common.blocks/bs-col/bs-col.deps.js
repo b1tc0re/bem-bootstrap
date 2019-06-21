@@ -1,0 +1,5 @@
+[{
+    shouldDeps : [
+        { block : 'bs-row' }
+    ]
+}]

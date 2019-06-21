@@ -1,0 +1,16 @@
+.bs-nav {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+
+    .bs-nav__link {
+        position: relative;
+        text-decoration: none;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+}
+
+

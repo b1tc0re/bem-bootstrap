@@ -1,0 +1,37 @@
+{
+  "author": "b1tc0re",
+  "name": "bem-bootstrap",
+  "version": "0.0.1",
+  "browserslist": [
+    "ie >= 10",
+    "opera 12.1",
+    "> 2%",
+    "last 1 versions",
+    "ios 7",
+    "safari 8"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://gitlab.com/b1tc0re/bem-bootstrap.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "devDependencies": {
+    "enb-make": "^0.0.6",
+    "bem-tools-create": "^2.1.0",
+    "cross-env": "^5.2.0",
+    "node-sass": "^4.10.0",
+    "bem-core": "^4.3.1",
+    "bem": "^2.0.0",
+    "bootstrap-sass": "^3.4.1"
+  },
+  "scripts": {
+    "drop-cache": "rm -rf .enb/tmp",
+    "test": "enb make && enb make clean && gulp",
+    "assembly-example": "enb make assembly-example",
+    "start": "enb server -p 3001",
+    "build": "enb make"
+  },
+  "private": true
+}

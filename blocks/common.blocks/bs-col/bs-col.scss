@@ -1,0 +1,7 @@
+@import "../../bootstrap-inports.scss";
+
+@include make-grid-columns-bem();
+
+.bs-col_auto {
+    margin: 0 auto;
+}

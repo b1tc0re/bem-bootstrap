@@ -1,0 +1,1 @@
+../../../../blocks/common.blocks/bs-container/bs-container.examples/bs-container.bemjson.js

@@ -1,0 +1,79 @@
+
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    "-sm"
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+    @return if(breakpoint-min($name, $breakpoints) == null, "", "_#{$name}");
+}
+
+// Framework grid generation
+//
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `$grid-columns`.
+
+@mixin make-grid-columns-bem($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+    // Common properties for all breakpoints
+    %grid-column {
+        position: relative;
+        width: 100%;
+        min-height: 1px; // Prevent columns from collapsing when empty
+        padding-right: ($gutter / 2);
+        padding-left: ($gutter / 2);
+    }
+
+    @each $breakpoint in map-keys($breakpoints) {
+        $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+        // Allow columns to stretch full width below their breakpoints
+        @for $i from 1 through $columns {
+            .bs-col#{$infix}_#{$i} {
+                @extend %grid-column;
+            }
+        }
+        .bs-col#{$infix},
+        .bs-col#{$infix}_auto {
+            @extend %grid-column;
+        }
+
+        @include media-breakpoint-up($breakpoint, $breakpoints) {
+            // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+            .bs-col#{$infix} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+            .bs-col#{$infix}_auto {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: none; // Reset earlier grid tiers
+            }
+
+            @for $i from 1 through $columns {
+                .bs-col#{$infix}_#{$i} {
+                    @include make-col($i, $columns);
+                }
+            }
+
+            .bs-order#{$infix}_first { order: -1; }
+
+            .bs-order#{$infix}_last { order: $columns + 1; }
+
+            @for $i from 0 through $columns {
+                .bs-order#{$infix}_#{$i} { order: $i; }
+            }
+
+            // `$columns - 1` because offsetting by the width of an entire row isn't possible
+            @for $i from 0 through ($columns - 1) {
+                @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+                    .bs-offset#{$infix}_#{$i} {
+                        @include make-col-offset($i, $columns);
+                    }
+                }
+            }
+        }
+    }
+}

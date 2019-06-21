@@ -1,0 +1,5 @@
+@import "../../bootstrap-inports.scss";
+
+.bs-row {
+    @include make-row();
+}

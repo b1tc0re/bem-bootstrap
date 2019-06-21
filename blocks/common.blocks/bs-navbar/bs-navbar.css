@@ -1,0 +1,12 @@
+.bs-navbar {
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem; }
+  .bs-navbar .bs-navbar__bs-container,
+  .bs-navbar .bs-navbar__bs-container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; }
