@@ -42,9 +42,7 @@ block('bs-nav')(
             return contents;
         };
 
-        ctx.content = iterateItems(ctx.items);
-
-
+        ctx.content = iterateItems(ctx.items || []);
         return applyNext();
     })
 );
